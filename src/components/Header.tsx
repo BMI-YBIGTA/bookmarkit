@@ -34,7 +34,7 @@ function Header() {
                 <Typography variant="h5" className={classes.userName}>
                     <Box sx={{ fontWeight:'bold'}}>{userName}님</Box>
                 </Typography>
-                <Button sx={{ fontSize:'15px' }} variant="text" color="error">로그아웃</Button>
+                <Button sx={{ fontSize:'18px' }} variant="text" color="error">로그아웃</Button>
                 
             </div>
         </div>
