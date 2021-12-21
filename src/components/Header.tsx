@@ -11,34 +11,32 @@ function Header() {
 
 
     return (
-        <div className={classes.root}>
-            <Typography variant="h4" color="#39F">
-                BookMarkit
-            </Typography>
-            <TextField 
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchIcon />
-                        </InputAdornment>
-                    ),
-                }}
-            variant="outlined" fullWidth />
-            <Typography variant="h5" gutterBottom>
-                <Box sx={{ fontWeight:'bold', }}>{userName}님, 안녕하세요!</Box>
-            </Typography>
-            <Button sx={{ fontSize:'15px' }} variant="text" color="error">로그아웃</Button>
-            <Paper
-                component="form"
-                sx={{p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
-            >
-                <IconButton sx={{p:'10px'}} aria-label="aaaaaaaaaaaaaaaa">
-                    <MenuIcon />
+        <div>
+            <div className={classes.root} >
+                <IconButton>
+                    <MenuIcon className={classes.navBar} fontSize="large" />
                 </IconButton>
-                <InputBase
-                    sx={{}}
-                />
-            </Paper>
+                <div className={classes.logo}>
+                    <Typography variant="h4" >
+                        BookMarkit
+                    </Typography>
+                </div>
+                
+                <TextField className={classes.search}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                variant="outlined" />
+                <Typography variant="h5" className={classes.userName}>
+                    <Box sx={{ fontWeight:'bold'}}>{userName}님</Box>
+                </Typography>
+                <Button sx={{ fontSize:'15px' }} variant="text" color="error">로그아웃</Button>
+                
+            </div>
         </div>
     )
 
@@ -48,7 +46,29 @@ function Header() {
 const useStyles = makeStyles({
     root: {
         direction: "inherit",
-        color: "red"
+        display: "flex",
+    },
+    logo: {
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        // alignContent: "center",
+        // placeContent: "center",
+        color: "#39F",
+        justifyContent: "center"
+    },
+    search: {
+        flex: 3,
+    },
+    userName: {
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        textAlign: "center"
+    },
+    navBar: {
+
     }
 });
 
