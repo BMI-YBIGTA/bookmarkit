@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   TextField,
   Typography,
@@ -8,24 +8,31 @@ import {
   Paper,
   IconButton,
   InputBase,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
 
-function Header() {
+interface Hprops {
+  toggle: boolean;
+  setToggle: Function;
+}
+
+function Header(props: Hprops) {
   const classes = useStyles();
-  const [userName, setUserName] = useState("User");
+  const [userName, setUserName] = useState('User');
 
   return (
     <div>
       <div className={classes.root}>
         <div className={classes.firstContainer}>
-          <IconButton>
-            <MenuIcon className={classes.navBar} fontSize="large" />
+          <IconButton
+            onClick={() => props.setToggle((toggle: boolean) => !toggle)}
+          >
+            <MenuIcon className={classes.navBar} fontSize='large' />
           </IconButton>
           <div className={classes.logo}>
-            <Typography variant="h4">BookMarkit</Typography>
+            <Typography variant='h4'>BookMarkit</Typography>
           </div>
         </div>
         <TextField
@@ -33,18 +40,18 @@ function Header() {
           // className={classes.search}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          variant="outlined"
+          variant='outlined'
         />
         <div className={classes.thirdContainer}>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{userName}님</Box>
+          <Typography variant='h5'>
+            <Box sx={{ fontWeight: 'bold' }}>{userName}님</Box>
           </Typography>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="error">
+          <Button sx={{ fontSize: '18px' }} variant='text' color='error'>
             로그아웃
           </Button>
         </div>
@@ -55,40 +62,40 @@ function Header() {
 
 const useStyles = makeStyles({
   root: {
-    direction: "inherit",
-    display: "flex",
-    marginTop: "20px",
-    marginBottom: "40px",
+    direction: 'inherit',
+    display: 'flex',
+    marginTop: '20px',
+    marginBottom: '40px',
   },
   firstContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   secondContainer: {
     flex: 3,
-    padding: "10px",
+    padding: '10px',
   },
   thirdContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   logo: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     // alignContent: "center",
     // placeContent: "center",
-    color: "#39F",
-    justifyContent: "center",
+    color: '#39F',
+    justifyContent: 'center',
   },
   search: {},
   userName: {
