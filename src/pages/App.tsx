@@ -1,12 +1,12 @@
 import React from "react";
-import logo from "../logo.svg";
-import "../App.css";
-import Main from "./Main";
+import DashboardPage from "./dashboard-page";
 
 function App() {
+
+  
   return (
     <div>
-      <Main></Main>
+      <DashboardPage/>
     </div>
   );
 }
