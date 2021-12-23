@@ -72,6 +72,9 @@ const useStyles = makeStyles({
   secondContainer: {
     flex: 3,
     padding: "10px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   thirdContainer: {
     flex: 1,
