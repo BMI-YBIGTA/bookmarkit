@@ -11,10 +11,15 @@ function DashboardPage() {
   return (
     <div>
       <Header />
-      <div>
-        <MenubarComponent />
-        <AddBookmarkComponent />
-        <MainCategoryComponent />
+      <div className={classes.mainContainer}>
+        <div className={classes.firstContainer}></div>
+
+        <div className={classes.secondContainer}>
+          <MenubarComponent />
+          <AddBookmarkComponent />
+          <MainCategoryComponent />
+        </div>
+        <div className={classes.thirdContainer}></div>
       </div>
     </div>
   );
@@ -23,6 +28,18 @@ function DashboardPage() {
 const useStyles = makeStyles({
   root: {
     color: "black",
+  },
+  mainContainer: {
+    display: "flex",
+  },
+  firstContainer: {
+    flex: 1,
+  },
+  secondContainer: {
+    flex: 3,
+  },
+  thirdContainer: {
+    flex: 1,
   },
 });
 
