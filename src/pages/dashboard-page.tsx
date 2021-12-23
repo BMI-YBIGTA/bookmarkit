@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
-import AddBookmarkComponent from "../components/dashboard/add-bookmark-component";
-import MenubarComponent from "../components/dashboard/menubar-component";
-import Header from "../components/header/header";
-import MainCategoryComponent from "../components/dashboard/main-category-component";
+import React, { useState } from 'react';
+import { makeStyles } from '@mui/styles';
+import AddBookmarkComponent from '../components/dashboard/add-bookmark-component';
+import MenubarComponent from '../components/dashboard/menubar-component';
+import Header from '../components/header/header';
+import MainCategoryComponent from '../components/dashboard/main-category-component';
+import NavigationComponent from '../components/dashboard/navigation-component';
 
 function DashboardPage() {
   const classes = useStyles();
+  const [isToggledNavBar, setToggle] = useState(false);
 
   return (
     <div>
-      <Header />
+      <Header toggle={isToggledNavBar} setToggle={setToggle} />
       <div className={classes.mainContainer}>
-        <div className={classes.firstContainer}></div>
-
+        <div className={classes.firstContainer}>
+          <NavigationComponent toggle={isToggledNavBar} />
+        </div>
         <div className={classes.secondContainer}>
           <MenubarComponent />
           <AddBookmarkComponent />
@@ -27,13 +30,15 @@ function DashboardPage() {
 
 const useStyles = makeStyles({
   root: {
-    color: "black",
+    color: 'black',
   },
   mainContainer: {
-    display: "flex",
+    display: 'flex',
   },
   firstContainer: {
     flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
   },
   secondContainer: {
     flex: 3,
