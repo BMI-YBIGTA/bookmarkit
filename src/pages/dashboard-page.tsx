@@ -71,7 +71,7 @@ interface ImainCategory {
 function DashboardPage() {
   const classes = useStyles();
   const [isToggledNavBar, setToggle] = useState(false);
-  const [category, setCategory] = useState("");
+  // const [category, setCategory] = useState("");
   const [authed, setAuthed] = useState(false);
   const [mainCategoryData, setMainCategoryData]: [ImainCategory, Function] =
     useState({});
@@ -80,14 +80,15 @@ function DashboardPage() {
   ).token;
 
   const currentSearchText = useSelector((state: RootState) => state.search);
+  const currentCategory = useSelector((state: RootState) => state.category.load);
 
   const fetchProps: IfetchMainCategoryDataProps = {
     token: token,
-    category: category,
+    category: currentCategory,
   };
   useEffect(() => {
     fetchMainCategoryData(fetchProps).then((res) => setMainCategoryData(res));
-  }, [category, useSelector((state: RootState) => state.userReducer.loggedIn)]);
+  }, [currentCategory, useSelector((state: RootState) => state.userReducer.loggedIn)]);
 
   return (
     <div className={classes.root}>

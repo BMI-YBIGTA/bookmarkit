@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Accordion,
@@ -36,12 +36,13 @@ function MenubarComponent() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const category = useSelector((state:RootState) => state.search);
+  // const category = useSelector((state:RootState) => state.category.load);
 
   const onClickCategory = (cat:string) => {
-    dispatch(actions.search.setSearch(cat));
-
+    dispatch(actions.category.setCategory(cat));
   }
+
+
 
   return (
     <div>
@@ -54,7 +55,8 @@ function MenubarComponent() {
         </AccordionSummary>
         <AccordionDetails>
           {mainCategoryList.map((item) => {
-            return <Button color="secondary" onClick={()=>onClickCategory(item)} >{item}</Button>;
+            return <Button color="secondary" onClick={()=>{
+              onClickCategory(item)} }>{item}</Button>;
           })}
         </AccordionDetails>
       </Accordion>
