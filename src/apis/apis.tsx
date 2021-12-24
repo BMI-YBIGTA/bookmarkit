@@ -79,3 +79,21 @@ export const fetchSearchData = async (props: IfetchSearchDataProps) => {
     console.log("fetch 실패");
   }
 };
+
+export interface IfetchRecordDataProps {
+  token: string;
+}
+export const fetchRecordData = async (props: IfetchRecordDataProps) => {
+  try {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+
+    const response = await axios.get(
+      "http://54.226.57.233:8080/api/memberbookmark/recent",
+      {}
+    );
+    console.log("record: ", response.data.result);
+    return response.data.result;
+  } catch (e) {
+    console.log("fetch 실패");
+  }
+};
