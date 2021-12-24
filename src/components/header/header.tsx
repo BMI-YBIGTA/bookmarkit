@@ -8,11 +8,16 @@ import {
   Paper,
   IconButton,
   InputBase,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../stores/reducers/userReducer';
+import { LOGOUT_USER } from '../../stores/actions/userAction';
+import { useDispatch } from 'react-redux';
+import { RootState } from '../../stores/reducers';
 import {
   BLUE_COLOR,
   MAIN_COLOR,
@@ -26,16 +31,28 @@ interface headerProps {
 
 function Header({ authed }: headerProps) {
   const classes = useStyles();
-  const [userName, setUserName] = useState("User");
+  const [userName, setUserName] = useState('User');
+  const dispatch = useDispatch();
+
+  const nickname = useSelector(
+    (state: RootState) => state.userReducer.nickname
+  );
+
 
   const userSpace = () => {
     if (authed) {
       return (
         <span>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{userName}님</Box>
+          <Typography variant='h5'>
+            <Box sx={{ fontWeight: 'bold' }}>{nickname}님</Box>
           </Typography>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="error">
+          <Button
+            sx={{ fontSize: '18px' }}
+            variant='text'
+            color='error'
+            onClick={() => window.localStorage.clear()}
+          >
+
             로그아웃
           </Button>
         </span>

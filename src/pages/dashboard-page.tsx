@@ -1,15 +1,20 @@
+
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
-import AddBookmarkComponent from "../components/dashboard/add-bookmark-component";
-import MenubarComponent from "../components/dashboard/menubar-component";
-import Header from "../components/header/header";
-import MainCategoryComponent from "../components/dashboard/main-category-component";
-import NavigationComponent from "../components/dashboard/navigation-component";
-import RecordComponent from "../components/record/record-component";
-import { ImageList, Typography } from "@mui/material";
-import SignInComponent from "../components/auth/sign-in-component";
+import { makeStyles } from '@mui/styles';
+import AddBookmarkComponent from '../components/dashboard/add-bookmark-component';
+import MenubarComponent from '../components/dashboard/menubar-component';
+import Header from '../components/header/header';
+import MainCategoryComponent from '../components/dashboard/main-category-component';
+import NavigationComponent from '../components/dashboard/navigation-component';
+import RecordComponent from '../components/record/record-component';
+import { ImageList } from '@mui/material';
+import SignInComponent from '../components/auth/sign-in-component';
+import { useSelector } from 'react-redux';
+import userReducer, { UserState } from '../stores/reducers/userReducer';
+import { RootState } from '../stores/reducers';
 import { LIGHT_GREY_COLOR } from "../assets/colors";
 import { fetchMainCategoryData } from "../apis";
+
 
 // const before_reduce = [
 //   {
@@ -23,28 +28,28 @@ import { fetchMainCategoryData } from "../apis";
 
 const reduced = [
   {
-    mainCat: "CS",
+    mainCat: 'CS',
     bookmarks: [
       {
-        smallCat: "OS",
-        title: "제목 111",
+        smallCat: 'OS',
+        title: '제목 111',
       },
       {
-        smallCat: "CA",
-        title: "제목 222",
+        smallCat: 'CA',
+        title: '제목 222',
       },
     ],
   },
   {
-    mainCat: "AI",
+    mainCat: 'AI',
     bookmarks: [
       {
-        smallCat: "ML",
-        title: "머신러닝",
+        smallCat: 'ML',
+        title: '머신러닝',
       },
       {
-        smallCat: "DL",
-        title: "딥러닝",
+        smallCat: 'DL',
+        title: '딥러닝',
       },
     ],
   },
@@ -68,6 +73,8 @@ function DashboardPage() {
     fetchMainCategoryData(category).then((res) => setMainCategoryData(res));
   }, [category]);
 
+  const token = useSelector((state: RootState) => state.userReducer.token);
+
   return (
     <div className={classes.root}>
       <div className={classes.naviContainer}>
@@ -75,7 +82,11 @@ function DashboardPage() {
       </div>
       <div className={classes.bodyContainer}>
         <div className={classes.headerContainer}>
-          <Header authed={authed} />
+          <Header
+        authed={window.localStorage.getItem('userInfo') ? true : false}
+        toggle={isToggledNavBar}
+        setToggle={setToggle}
+      />
         </div>
 
         <div className={classes.mainContainer}>
@@ -151,7 +162,7 @@ const useStyles = makeStyles({
   },
   thirdContainer: {
     flex: 1,
-    width: "20%",
+    width: '20%',
   },
   subContainer: {
     display: "flex",

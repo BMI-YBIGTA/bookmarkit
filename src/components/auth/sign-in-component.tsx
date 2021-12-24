@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { SIGNIN_USER } from '../../stores/actions/userAction';
 
 function Copyright(props: any) {
   return (
@@ -34,14 +38,26 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignInComponent() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+    let req = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    axios
+      .post('http://54.226.57.233:8080/api/sign-in', req)
+      .then((res) => {
+        dispatch({ type: SIGNIN_USER, payload: res.data.result });
+        window.localStorage.setItem('userInfo', JSON.stringify(res.data));
+        history.push('/');
+      })
+      .catch((error) => alert(error));
   };
 
   return (

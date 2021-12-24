@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { SIGNUP_USER } from '../../stores/actions/userAction';
 
 function Copyright(props: any) {
   return (
@@ -34,14 +37,25 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUpComponent() {
+  const history = useHistory();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+
+    const req = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+      name: data.get('nickname'),
+    };
+
+    axios
+      .post('http://54.226.57.233:8080/api/sign-up', req)
+      .then((res) => {
+        console.log(res.data);
+        history.push('/');
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
