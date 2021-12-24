@@ -15,7 +15,7 @@ import {
   Divider,
 } from "@mui/material";
 import { Settings } from "@mui/icons-material";
-import { IsubCategory } from "../../pages/dashboard-page";
+import { IsubCategory, IsubTitles } from "../../pages/dashboard-page";
 
 interface MainCategoryProps {
   mainCat: string;
@@ -47,30 +47,34 @@ function MainCategoryComponent(props: MainCategoryProps) {
             {props.mainCat}
           </Typography>
           {/* {Object.entries(props.bookmarks).map(([key, value]) => { */}
-          {Object.entries(props.bookmarks).map(([key, value]) => {
-            return (
-              <div key={key}>
-                <Chip
-                  variant="outlined"
-                  label={key}
-                  color="primary"
-                  className={classes.smallCat}
-                />
-                <div className={classes.bookmark}>
-                  {value.map((result: string) => {
-                    return (
-                      <Typography
-                        variant="body2"
-                        className={classes.bookmarkHeader}
-                      >
-                        {result}
-                      </Typography>
-                    );
-                  })}
+          {props.bookmarks &&
+            Object.entries(props.bookmarks).map(([key, value]) => {
+              console.log("data: ", key, value);
+              return (
+                <div key={key}>
+                  <Chip
+                    variant="outlined"
+                    label={key}
+                    color="primary"
+                    className={classes.smallCat}
+                  />
+
+                  {value &&
+                    Object.entries(value).map(([key, result]) => {
+                      return (
+                        <div className={classes.bookmark}>
+                          <Typography
+                            variant="body2"
+                            className={classes.bookmarkHeader}
+                          >
+                            {result.title}
+                          </Typography>
+                        </div>
+                      );
+                    })}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
           <IconButton onClick={handleOpen}>
             <Settings className={classes.setIcon} />
           </IconButton>
