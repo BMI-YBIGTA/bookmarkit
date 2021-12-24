@@ -13,9 +13,39 @@ import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { makeStyles } from "@mui/styles";
 
-function Header() {
+interface headerProps {
+  authed: boolean
+}
+
+function Header({authed}:headerProps) {
   const classes = useStyles();
   const [userName, setUserName] = useState("User");
+
+  const userSpace = () => {
+    if(authed) {
+      return (
+        <span>
+          <Typography variant="h5">  
+            <Box sx={{ fontWeight: "bold" }}>{userName}님</Box>
+          </Typography>
+          <Button sx={{ fontSize: "18px" }} variant="text" color="error">
+            로그아웃
+          </Button>
+        </span>
+      )
+    } else {
+      return (
+        <span>
+          <Button sx={{ fontSize: "18px" }} variant="text" color="primary">
+            로그인
+          </Button>
+          <Button sx={{ fontSize: "18px" }} variant="text" color="secondary">
+            회원가입
+          </Button>
+        </span>
+      )
+    }
+  }
 
   return (
     <div>
@@ -41,12 +71,7 @@ function Header() {
           variant="outlined"
         />
         <div className={classes.thirdContainer}>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{userName}님</Box>
-          </Typography>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="error">
-            로그아웃
-          </Button>
+          {userSpace()}
         </div>
       </div>
     </div>
