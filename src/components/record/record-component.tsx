@@ -93,7 +93,7 @@ function RecordComponent() {
         marginTop="20px"
       >
         {valueData.map((items, idx) => (
-          <div>
+          <div key={idx}>
             <Typography className={classes.rowDate}>
               {dateData.at(idx)}
             </Typography>

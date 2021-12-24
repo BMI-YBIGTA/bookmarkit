@@ -14,42 +14,12 @@ import { AddCircleOutlineOutlined } from "@mui/icons-material";
 import { IpostRegisterBookmark, postRegisterBookmark } from "../../apis";
 import axios from "axios";
 import ReactDOM from "react-dom";
-import cheerio from "cheerio";
 
 function AddBookmarkComponent() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
-
-  const getHTML = async (url: string) => {
-    try {
-      return await axios.get("https://chaewonkong.github.io");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  type itype = {
-    title: string;
-  };
-
-  getHTML("")
-    .then((html) => {
-      let titleList: itype[] = [];
-      const $ = cheerio.load(html?.data);
-      // ul.list--posts를 찾고 그 children 노드를 bodyList에 저장
-      const bodyList = $("ul.list--posts").children("li.item--post");
-
-      // bodyList를 순회하며 titleList에 h2 > a의 내용을 저장
-      bodyList.each(function (i, elem) {
-        titleList[i] = {
-          title: $(this).find("h2 a").text(),
-        };
-      });
-      return titleList;
-    })
-    .then((res) => console.log(res)); // 저장된 결과를 출력
-
   const handleClose = () => {
     setOpen(false);
     const params: IpostRegisterBookmark = {

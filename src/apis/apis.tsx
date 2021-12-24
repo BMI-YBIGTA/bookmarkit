@@ -1,29 +1,34 @@
 import axios from "axios";
-
-import { Cookies } from "react-cookie";
-
-const cookies = new Cookies();
-
-const accessToken = cookies.get("accessToken");
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../stores/reducers";
 
 export const api = axios.create({
   baseURL: "http://54.226.57.233:8080",
-  headers: {
-    Authorization: accessToken ? `Bearer ${accessToken}` : "",
-  },
 });
 
-export const fetchMainCategoryData = async (category: string) => {
+export interface IfetchMainCategoryDataProps {
+  token: string;
+  category: string;
+}
+export const fetchMainCategoryData = async (
+  props: IfetchMainCategoryDataProps
+) => {
   try {
-    const response = await api.get("/api/memberbookmark/query", {
-      params: {
-        category: category,
-      },
-    });
-    console.log(response.data);
-    return response.data;
+    console.log(props);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+
+    const response = await axios.get(
+      "http://54.226.57.233:8080/api/memberbookmark/query",
+      {
+        params: {
+          category: props.category,
+        },
+      }
+    );
+    console.log(response.data.result);
+    return response.data.result;
   } catch (e) {
-    console.log();
+    console.log("fetch 실패");
   }
 };
 
