@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { BLACK_COLOR } from "../../assets/colors";
+import { useDispatch, useSelector } from "react-redux";
+import actions from "../../stores/actions";
+import { RootState } from "../../stores/reducers";
 
 const mainCategoryList = [
   "전체",
@@ -31,7 +34,7 @@ const mainCategoryList = [
 ];
 function MenubarComponent() {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   return (
     <div>
       <Accordion
