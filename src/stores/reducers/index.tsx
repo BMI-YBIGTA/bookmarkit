@@ -1,6 +1,6 @@
-import { combineReducers } from "redux";
-import alert from "./alert";
-import userReducer from "./userReducer";
+import { combineReducers } from 'redux';
+import alert from './alert';
+import userReducer from './userReducer';
 
 const reducers = combineReducers({
   userReducer,

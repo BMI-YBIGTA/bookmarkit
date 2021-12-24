@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   TextField,
   Typography,
@@ -8,22 +8,22 @@ import {
   Paper,
   IconButton,
   InputBase,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { UserState } from "../../stores/reducers/userReducer";
-import { LOGOUT_USER } from "../../stores/actions/userAction";
-import { useDispatch } from "react-redux";
-import { RootState } from "../../stores/reducers";
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { UserState } from '../../stores/reducers/userReducer';
+import { LOGOUT_USER } from '../../stores/actions/userAction';
+import { useDispatch } from 'react-redux';
+import { RootState } from '../../stores/reducers';
 import {
   BLUE_COLOR,
   MAIN_COLOR,
   ORANGE_10_COLOR,
   ORANGE_COLOR,
-} from "../../assets/colors";
+} from '../../assets/colors';
 
 interface headerProps {
   authed: boolean;
@@ -31,25 +31,31 @@ interface headerProps {
 
 function Header({ authed }: headerProps) {
   const classes = useStyles();
-  const [userName, setUserName] = useState("User");
+  const [userName, setUserName] = useState('User');
   const dispatch = useDispatch();
-  const [searchText, setSearchText] = useState("");
-  const nickname = useSelector(
-    (state: RootState) => state.userReducer.nickname
-  );
+  const [searchText, setSearchText] = useState('');
+  const nickname = JSON.parse(
+    window.localStorage.getItem('userInfo') || '{}'
+  ).name;
+  useEffect(() => {}, [
+    useSelector((state: RootState) => state.userReducer.loggedIn),
+  ]);
 
   const userSpace = () => {
     if (authed) {
       return (
         <span>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{nickname}님</Box>
+          <Typography variant='h5'>
+            <Box sx={{ fontWeight: 'bold' }}>{nickname}님</Box>
           </Typography>
           <Button
-            sx={{ fontSize: "18px" }}
-            variant="text"
-            color="error"
-            onClick={() => window.localStorage.clear()}
+            sx={{ fontSize: '18px' }}
+            variant='text'
+            color='error'
+            onClick={() => {
+              dispatch({ type: LOGOUT_USER });
+              window.localStorage.clear();
+            }}
           >
             로그아웃
           </Button>
@@ -58,15 +64,15 @@ function Header({ authed }: headerProps) {
     } else {
       return (
         <span>
-          <Link to="/signin" className={classes.link}>
-            <Button style={{ color: BLUE_COLOR }} sx={{ fontSize: "20px" }}>
+          <Link to='/signin' className={classes.link}>
+            <Button style={{ color: BLUE_COLOR }} sx={{ fontSize: '20px' }}>
               로그인
             </Button>
           </Link>
-          <Link to="/signup" className={classes.link}>
+          <Link to='/signup' className={classes.link}>
             <Button
-              sx={{ fontSize: "20px" }}
-              style={{ color: BLUE_COLOR, marginLeft: "10px" }}
+              sx={{ fontSize: '20px' }}
+              style={{ color: BLUE_COLOR, marginLeft: '10px' }}
             >
               회원가입
             </Button>
@@ -87,12 +93,12 @@ function Header({ authed }: headerProps) {
           }}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          variant="outlined"
+          variant='outlined'
         />
         <div className={classes.thirdContainer}>{userSpace()}</div>
       </div>
@@ -102,26 +108,26 @@ function Header({ authed }: headerProps) {
 
 const useStyles = makeStyles({
   root: {
-    direction: "inherit",
-    display: "flex",
-    marginTop: "20px",
-    marginBottom: "40px",
+    direction: 'inherit',
+    display: 'flex',
+    marginTop: '20px',
+    marginBottom: '40px',
   },
   secondContainer: {
     flex: 3,
-    padding: "10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   thirdContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   search: {},
   userName: {
@@ -129,10 +135,10 @@ const useStyles = makeStyles({
   },
   navBar: {},
   link: {
-    textDecoration: "none",
-    "&:visited": { textDecoration: "none" },
-    "&:hover": { textDecoration: "none" },
-    "&:link": { textDecoration: "none" },
+    textDecoration: 'none',
+    '&:visited': { textDecoration: 'none' },
+    '&:hover': { textDecoration: 'none' },
+    '&:link': { textDecoration: 'none' },
   },
 });
 
