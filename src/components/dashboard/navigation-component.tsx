@@ -1,31 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@mui/styles";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Drawer, List, ListItem } from "@mui/material";
+import { Link } from "react-router-dom";
+import HeaderImg from "../../assets/header.png";
 
-interface Nprops {
-  toggle: boolean;
-}
-
-function NavigationComponent(props: Nprops) {
+function NavigationComponent() {
   const classes = useStyles();
-  const onClickCategory = () => {};
-  const onClickBookmark = () => {};
-  if (props.toggle) {
-    return (
-      <div className={classes.root}>
-        <div className={classes.typoBox}>
-          <Typography variant="h6" sx={{ paddingBottom: "10px" }}>
-            <Box sx={{ fontWeight: "bold", cursor: "pointer" }}>
-              카테고리 종류
-            </Box>
-          </Typography>
-          <Typography variant="h6" sx={{ paddingBottom: "10px" }}>
-            <Box sx={{ fontWeight: "bold", cursor: "pointer" }}>MY 북마크</Box>
-          </Typography>
-        </div>
-      </div>
-    );
-  } else return null;
+
+  return (
+    <Box sx={{ width: "250px" }} role="presentation">
+      <List>
+        <ListItem button key={"bookmark"}>
+          <img className={classes.image} alt="bookmark" src={HeaderImg} />
+        </ListItem>
+        <ListItem button key={"My 북마크"}>
+          {/* <ListItemText primary={"My 북마크"} /> */}
+          <Link className={classes.link} to="/">
+            MY 북마크
+          </Link>
+        </ListItem>
+        <ListItem button key={"카테고리 종류"}>
+          <Link className={classes.link} to="/category">
+            카테고리 종류
+          </Link>
+        </ListItem>
+      </List>
+    </Box>
+  );
 }
 
 const useStyles = makeStyles({
@@ -44,6 +45,16 @@ const useStyles = makeStyles({
     width: "90%",
     justifyContent: "flex-start",
     flexDirection: "column",
+  },
+  link: {
+    textDecoration: "none",
+    color: "black",
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
+  image: {
+    width: "200px",
+    height: "auto",
   },
 });
 

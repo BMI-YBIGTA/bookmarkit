@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TextField,
   Typography,
@@ -18,14 +18,18 @@ import { UserState } from '../../stores/reducers/userReducer';
 import { LOGOUT_USER } from '../../stores/actions/userAction';
 import { useDispatch } from 'react-redux';
 import { RootState } from '../../stores/reducers';
+import {
+  BLUE_COLOR,
+  MAIN_COLOR,
+  ORANGE_10_COLOR,
+  ORANGE_COLOR,
+} from "../../assets/colors";
 
 interface headerProps {
   authed: boolean;
-  toggle: boolean;
-  setToggle: Function;
 }
 
-function Header({ authed, toggle, setToggle }: headerProps) {
+function Header({ authed }: headerProps) {
   const classes = useStyles();
   const [userName, setUserName] = useState('User');
   const dispatch = useDispatch();
@@ -33,6 +37,7 @@ function Header({ authed, toggle, setToggle }: headerProps) {
   const nickname = useSelector(
     (state: RootState) => state.userReducer.nickname
   );
+
 
   const userSpace = () => {
     if (authed) {
@@ -47,6 +52,7 @@ function Header({ authed, toggle, setToggle }: headerProps) {
             color='error'
             onClick={() => window.localStorage.clear()}
           >
+
             로그아웃
           </Button>
         </span>
@@ -54,20 +60,15 @@ function Header({ authed, toggle, setToggle }: headerProps) {
     } else {
       return (
         <span>
-          <Link to='/signin' className={classes.link}>
-            <Button
-              sx={{ fontSize: '18px' }}
-              variant='contained'
-              color='primary'
-            >
+          <Link to="/signin" className={classes.link}>
+            <Button style={{ color: BLUE_COLOR }} sx={{ fontSize: "20px" }}>
               로그인
             </Button>
           </Link>
-          <Link to='/signup' className={classes.link}>
+          <Link to="/signup" className={classes.link}>
             <Button
-              sx={{ fontSize: '18px' }}
-              variant='contained'
-              color='secondary'
+              sx={{ fontSize: "20px" }}
+              style={{ color: BLUE_COLOR, marginLeft: "10px" }}
             >
               회원가입
             </Button>
@@ -80,25 +81,17 @@ function Header({ authed, toggle, setToggle }: headerProps) {
   return (
     <div>
       <div className={classes.root}>
-        <div className={classes.firstContainer}>
-          <IconButton onClick={() => setToggle((toggle: boolean) => !toggle)}>
-            <MenuIcon className={classes.navBar} fontSize='large' />
-          </IconButton>
-          <div className={classes.logo}>
-            <Typography variant='h4'>BookMarkit</Typography>
-          </div>
-        </div>
         <TextField
           className={classes.secondContainer}
           // className={classes.search}
           InputProps={{
             startAdornment: (
-              <InputAdornment position='start'>
+              <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          variant='outlined'
+          variant="outlined"
         />
         <div className={classes.thirdContainer}>{userSpace()}</div>
       </div>
@@ -108,43 +101,26 @@ function Header({ authed, toggle, setToggle }: headerProps) {
 
 const useStyles = makeStyles({
   root: {
-    direction: 'inherit',
-    display: 'flex',
-    marginTop: '20px',
-    marginBottom: '40px',
-  },
-  firstContainer: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    padding: '10px',
+    direction: "inherit",
+    display: "flex",
+    marginTop: "20px",
+    marginBottom: "40px",
   },
   secondContainer: {
     flex: 3,
-    padding: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    padding: "10px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
   },
   thirdContainer: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    padding: '10px',
-  },
-  logo: {
-    display: 'flex',
-    flexDirection: 'column',
-    // alignContent: "center",
-    // placeContent: "center",
-    color: '#39F',
-    justifyContent: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    padding: "10px",
   },
   search: {},
   userName: {
@@ -152,10 +128,10 @@ const useStyles = makeStyles({
   },
   navBar: {},
   link: {
-    textDecoration: 'none',
-    '&:visited': { textDecoration: 'none' },
-    '&:hover': { textDecoration: 'none' },
-    '&:link': { textDecoration: 'none' },
+    textDecoration: "none",
+    "&:visited": { textDecoration: "none" },
+    "&:hover": { textDecoration: "none" },
+    "&:link": { textDecoration: "none" },
   },
 });
 
