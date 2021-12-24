@@ -35,6 +35,14 @@ const mainCategoryList = [
 function MenubarComponent() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const category = useSelector((state:RootState) => state.search);
+
+  const onClickCategory = (cat:string) => {
+    dispatch(actions.search.setSearch(cat));
+
+  }
+
   return (
     <div>
       <Accordion
@@ -46,7 +54,7 @@ function MenubarComponent() {
         </AccordionSummary>
         <AccordionDetails>
           {mainCategoryList.map((item) => {
-            return <Button color="secondary">{item}</Button>;
+            return <Button color="secondary" onClick={()=>onClickCategory(item)} >{item}</Button>;
           })}
         </AccordionDetails>
       </Accordion>
