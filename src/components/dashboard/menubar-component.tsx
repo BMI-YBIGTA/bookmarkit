@@ -9,7 +9,26 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { BLACK_COLOR } from "../../assets/colors";
 
+const mainCategoryList = [
+  "전체",
+  "Computer Science",
+  "Database",
+  "Language",
+  "AI",
+  "Frontend",
+  "Backend",
+  "Web",
+  "Data",
+  "DevOps",
+  "Cloud",
+  "IDE",
+  "Version Control System",
+  "Mobile",
+  "Game",
+  "Embedded",
+];
 function MenubarComponent() {
   const classes = useStyles();
 
@@ -23,9 +42,9 @@ function MenubarComponent() {
           <Typography>카테고리 목록</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Button>전체</Button>
-          <Button color="primary">OS</Button>
-          <Button>CA</Button>
+          {mainCategoryList.map((item) => {
+            return <Button color="secondary">{item}</Button>;
+          })}
         </AccordionDetails>
       </Accordion>
     </div>
@@ -43,6 +62,9 @@ const useStyles = makeStyles({
     flex: 3,
     // width: "100%",
     // flexDirection: "column"
+  },
+  buttom: {
+    color: BLACK_COLOR,
   },
 });
 

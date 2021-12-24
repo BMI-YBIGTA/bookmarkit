@@ -6,11 +6,15 @@ import SignInPage from "./sign-in-page";
 import CategoriesPage from "./categories-page";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { BLACK_COLOR } from "../assets/colors";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#d5b589",
+    },
+    secondary: {
+      main: BLACK_COLOR,
     },
   },
 });

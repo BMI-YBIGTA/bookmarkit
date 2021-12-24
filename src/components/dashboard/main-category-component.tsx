@@ -62,7 +62,7 @@ function MainCategoryComponent(props: MainCategoryProps) {
                   {value &&
                     Object.entries(value).map(([key, result]) => {
                       return (
-                        <div className={classes.bookmark}>
+                        <div className={classes.bookmark} key={key}>
                           <Typography
                             variant="body2"
                             className={classes.bookmarkHeader}
