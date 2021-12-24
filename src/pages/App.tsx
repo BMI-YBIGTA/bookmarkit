@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardPage from "./dashboard-page";
 
 function App() {

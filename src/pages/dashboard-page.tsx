@@ -4,6 +4,7 @@ import AddBookmarkComponent from "../components/dashboard/add-bookmark-component
 import MenubarComponent from "../components/dashboard/menubar-component";
 import Header from "../components/header/header";
 import MainCategoryComponent from "../components/dashboard/main-category-component";
+import RecordComponent from "../components/record/record-component";
 
 function DashboardPage() {
   const classes = useStyles();
@@ -19,7 +20,9 @@ function DashboardPage() {
           <AddBookmarkComponent />
           <MainCategoryComponent />
         </div>
-        <div className={classes.thirdContainer}></div>
+        <div className={classes.thirdContainer}>
+          <RecordComponent />
+        </div>
       </div>
     </div>
   );
@@ -40,6 +43,7 @@ const useStyles = makeStyles({
   },
   thirdContainer: {
     flex: 1,
+    width: "20%",
   },
 });
 

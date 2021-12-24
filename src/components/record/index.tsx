@@ -1,1 +1,1 @@
-export * from "./one-record-component";
+export * from "./record-component";
