@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 function CategoriesPage() {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <>
-        </>
-    );
+  return <>카테고리 페이지</>;
 }
 
 const useStyles = makeStyles({
-    root: {
-        color: "black"
-    }
+  root: {
+    color: "black",
+  },
 });
 
 export default CategoriesPage;
