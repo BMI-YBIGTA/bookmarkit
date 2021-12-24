@@ -96,6 +96,8 @@ function DashboardPage() {
     useState({});
   const [searchData, setSearchData]: [IsearchData[], Function] = useState([]);
 
+  useSelector((state: RootState) => state.userReducer.loggedIn);
+
   const token = JSON.parse(
     window.localStorage.getItem("userInfo") || "{}"
   ).token;
@@ -115,11 +117,7 @@ function DashboardPage() {
   useEffect(() => {
     fetchMainCategoryData(fetchProps).then((res) => setMainCategoryData(res));
     fetchSearchData(fetchSearchProps).then((res) => setSearchData(res));
-  }, [
-    category,
-    currentSearchText,
-    useSelector((state: RootState) => state.userReducer.loggedIn),
-  ]);
+  }, [category, currentSearchText]);
 
   return (
     <div className={classes.root}>
