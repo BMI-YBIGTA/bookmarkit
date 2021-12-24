@@ -59,7 +59,7 @@ function DashboardPage() {
       <Header authed={authed} toggle={isToggledNavBar} setToggle={setToggle} />
       <div className={classes.mainContainer}>
         <div className={classes.firstContainer}>
-          <NavigationComponent toggle={isToggledNavBar} />
+          <NavigationComponent toggle={isToggledNavBar} setToggle={setToggle} />
         </div>
         <div className={classes.secondContainer}>
           <MenubarComponent />
