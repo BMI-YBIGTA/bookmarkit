@@ -5,6 +5,17 @@ import MenubarComponent from "../components/dashboard/menubar-component";
 import Header from "../components/header/header";
 import MainCategoryComponent from "../components/dashboard/main-category-component";
 import { ImageList } from "@mui/material";
+import SignInComponent from "../components/auth/sign-in-component";
+
+// const before_reduce = [
+//   {
+//     mainCat:string,
+//     smallCat: string,
+//     title: string,
+//     summary: string.
+//     url: string
+//   }
+// ]
 
 const reduced = [
   {
@@ -38,9 +49,11 @@ const reduced = [
 function DashboardPage() {
   const classes = useStyles();
 
+  const [authed, setAuthed] = useState(false);
+
   return (
     <div>
-      <Header />
+      <Header authed={authed} />
       <div className={classes.mainContainer}>
         <div className={classes.firstContainer}></div>
         <div className={classes.secondContainer}>
@@ -60,6 +73,7 @@ function DashboardPage() {
         </div>
         <div className={classes.thirdContainer}></div>
       </div>
+      <SignInComponent />
     </div>
   );
 }
