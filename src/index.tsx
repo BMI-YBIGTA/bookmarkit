@@ -2,15 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./pages/App";
 import reportWebVitals from "./reportWebVitals";
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import reducers from './stores/reducers';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducers from "./stores/reducers";
+import { BrowserRouter } from "react-router-dom"; // * BrowserRouter 불러오기
 
 const store = createStore(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

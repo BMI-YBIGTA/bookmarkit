@@ -5,6 +5,8 @@ import AddBookmarkComponent from "../components/dashboard/add-bookmark-component
 import MenubarComponent from "../components/dashboard/menubar-component";
 import Header from "../components/header/header";
 import MainCategoryComponent from "../components/dashboard/main-category-component";
+import NavigationComponent from '../components/dashboard/navigation-component';
+import RecordComponent from "../components/record/record-component";
 import { ImageList } from "@mui/material";
 import SignInComponent from "../components/auth/sign-in-component";
 
@@ -45,14 +47,6 @@ const reduced = [
       }
     ]
   }
-// import React, { useState } from 'react';
-// import { makeStyles } from '@mui/styles';
-// import AddBookmarkComponent from '../components/dashboard/add-bookmark-component';
-// import MenubarComponent from '../components/dashboard/menubar-component';
-// import Header from '../components/header/header';
-// import MainCategoryComponent from '../components/dashboard/main-category-component';
-// import NavigationComponent from '../components/dashboard/navigation-component';
-
 
 function DashboardPage() {
   const classes = useStyles();
@@ -87,7 +81,9 @@ function DashboardPage() {
             })}
           </ImageList>
         </div>
-        <div className={classes.thirdContainer}></div>
+        <div className={classes.thirdContainer}>
+          <RecordComponent />
+        </div>
       </div>
       <SignInComponent />
     </div>
@@ -111,6 +107,7 @@ const useStyles = makeStyles({
   },
   thirdContainer: {
     flex: 1,
+    width: "20%",
   },
 });
 

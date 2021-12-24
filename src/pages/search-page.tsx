@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
+import { Paper } from "@mui/material";
 
 function SearchPage() {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return (
-        <>
-        </>
-    );
+  return <Paper></Paper>;
 }
 
 const useStyles = makeStyles({
-    root: {
-        color: "black"
-    }
+  root: {
+    color: "black",
+  },
 });
 
 export default SearchPage;
