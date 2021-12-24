@@ -2,17 +2,11 @@ import { AnyAction } from 'redux';
 import { SIGNIN_USER, SIGNUP_USER, LOGOUT_USER } from '../actions/userAction';
 
 export type UserState = {
-  email: string;
-  password: string;
-  nickname: string;
-  token: string;
+  loggedIn: boolean;
 };
 
 const initialState: UserState = {
-  email: '',
-  password: '',
-  nickname: '',
-  token: '',
+  loggedIn: false,
 };
 
 export default function (state: UserState = initialState, action: AnyAction) {
@@ -20,14 +14,12 @@ export default function (state: UserState = initialState, action: AnyAction) {
     case SIGNIN_USER:
       return {
         ...state,
-        token: action.payload.token,
-        email: action.payload.email,
-        nickname: action.payload.name,
+        loggedIn: true,
       };
     case SIGNUP_USER:
-      return { ...state, success: action.payload };
+      return { ...state, loggedIn: true };
     case LOGOUT_USER:
-      return { ...state };
+      return { ...state, loggedIn: false };
     default:
       return state;
   }

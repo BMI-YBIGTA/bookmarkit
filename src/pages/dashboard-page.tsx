@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@mui/styles";
-import AddBookmarkComponent from "../components/dashboard/add-bookmark-component";
-import MenubarComponent from "../components/dashboard/menubar-component";
-import Header from "../components/header/header";
-import MainCategoryComponent from "../components/dashboard/main-category-component";
-import NavigationComponent from "../components/dashboard/navigation-component";
-import RecordComponent from "../components/record/record-component";
-import { ImageList } from "@mui/material";
-import SignInComponent from "../components/auth/sign-in-component";
-import { useSelector } from "react-redux";
-import userReducer, { UserState } from "../stores/reducers/userReducer";
-import { RootState } from "../stores/reducers";
-import { LIGHT_GREY_COLOR } from "../assets/colors";
-import { fetchMainCategoryData, IfetchMainCategoryDataProps } from "../apis";
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@mui/styles';
+import AddBookmarkComponent from '../components/dashboard/add-bookmark-component';
+import MenubarComponent from '../components/dashboard/menubar-component';
+import Header from '../components/header/header';
+import MainCategoryComponent from '../components/dashboard/main-category-component';
+import NavigationComponent from '../components/dashboard/navigation-component';
+import RecordComponent from '../components/record/record-component';
+import { ImageList } from '@mui/material';
+import SignInComponent from '../components/auth/sign-in-component';
+import { useSelector } from 'react-redux';
+import userReducer, { UserState } from '../stores/reducers/userReducer';
+import { RootState } from '../stores/reducers';
+import { LIGHT_GREY_COLOR } from '../assets/colors';
+import { fetchMainCategoryData, IfetchMainCategoryDataProps } from '../apis';
 
 // const before_reduce = [
 //   {
@@ -26,28 +26,28 @@ import { fetchMainCategoryData, IfetchMainCategoryDataProps } from "../apis";
 
 const reduced = [
   {
-    mainCat: "CS",
+    mainCat: 'CS',
     bookmarks: [
       {
-        smallCat: "OS",
-        title: "제목 111",
+        smallCat: 'OS',
+        title: '제목 111',
       },
       {
-        smallCat: "CA",
-        title: "제목 222",
+        smallCat: 'CA',
+        title: '제목 222',
       },
     ],
   },
   {
-    mainCat: "AI",
+    mainCat: 'AI',
     bookmarks: [
       {
-        smallCat: "ML",
-        title: "머신러닝",
+        smallCat: 'ML',
+        title: '머신러닝',
       },
       {
-        smallCat: "DL",
-        title: "딥러닝",
+        smallCat: 'DL',
+        title: '딥러닝',
       },
     ],
   },
@@ -71,11 +71,16 @@ interface ImainCategory {
 function DashboardPage() {
   const classes = useStyles();
   const [isToggledNavBar, setToggle] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [authed, setAuthed] = useState(false);
   const [mainCategoryData, setMainCategoryData]: [ImainCategory, Function] =
     useState({});
-  const token = useSelector((state: RootState) => state.userReducer.token);
+  const token = JSON.parse(
+    window.localStorage.getItem('userInfo') || '{}'
+  ).token;
+  useEffect(() => {}, [
+    useSelector((state: RootState) => state.userReducer.loggedIn),
+  ]);
 
   const fetchProps: IfetchMainCategoryDataProps = {
     token: token,
@@ -92,9 +97,7 @@ function DashboardPage() {
       </div>
       <div className={classes.bodyContainer}>
         <div className={classes.headerContainer}>
-          <Header
-            authed={window.localStorage.getItem("userInfo") ? true : false}
-          />
+          <Header authed={token ? true : false} />
         </div>
 
         <div className={classes.mainContainer}>
@@ -136,31 +139,31 @@ function DashboardPage() {
 
 const useStyles = makeStyles({
   root: {
-    color: "black",
-    display: "flex",
-    flexDirection: "row",
+    color: 'black',
+    display: 'flex',
+    flexDirection: 'row',
   },
   naviContainer: {
     flex: 1,
-    marginRight: "20px",
+    marginRight: '20px',
     backgroundColor: LIGHT_GREY_COLOR,
   },
   bodyContainer: {
     flex: 5,
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
   mainContainer: {
-    display: "flex",
+    display: 'flex',
     height: window.innerHeight,
   },
   logo: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     // alignContent: "center",
     // placeContent: "center",
-    color: "#39F",
-    justifyContent: "center",
+    color: '#39F',
+    justifyContent: 'center',
   },
   headerContainer: {},
   // firstContainer: {
@@ -174,22 +177,22 @@ const useStyles = makeStyles({
   },
   thirdContainer: {
     flex: 1,
-    width: "20%",
+    width: '20%',
   },
   subContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   addBookmarkContainer: {
     flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   menuContainer: {
     flex: 20,
-    paddingLeft: "10px",
-    paddingRight: "10px",
+    paddingLeft: '10px',
+    paddingRight: '10px',
   },
 });
 

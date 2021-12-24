@@ -1,9 +1,7 @@
-import alert from '../reducers/alert';
-import userAction from '../reducers/userReducer';
+import alert from './alert';
 
 const actions = {
   alert,
-  userAction,
 };
 
 export default actions;
