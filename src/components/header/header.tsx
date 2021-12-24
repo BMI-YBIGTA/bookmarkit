@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   TextField,
   Typography,
@@ -8,10 +8,11 @@ import {
   Paper,
   IconButton,
   InputBase,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
+import { Link } from 'react-router-dom';
 
 interface headerProps {
   authed: boolean;
@@ -21,16 +22,16 @@ interface headerProps {
 
 function Header({ authed, toggle, setToggle }: headerProps) {
   const classes = useStyles();
-  const [userName, setUserName] = useState("User");
+  const [userName, setUserName] = useState('User');
 
   const userSpace = () => {
     if (authed) {
       return (
         <span>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{userName}님</Box>
+          <Typography variant='h5'>
+            <Box sx={{ fontWeight: 'bold' }}>{userName}님</Box>
           </Typography>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="error">
+          <Button sx={{ fontSize: '18px' }} variant='text' color='error'>
             로그아웃
           </Button>
         </span>
@@ -38,12 +39,24 @@ function Header({ authed, toggle, setToggle }: headerProps) {
     } else {
       return (
         <span>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="primary">
-            로그인
-          </Button>
-          <Button sx={{ fontSize: "18px" }} variant="text" color="secondary">
-            회원가입
-          </Button>
+          <Link to='/signin' className={classes.link}>
+            <Button
+              sx={{ fontSize: '18px' }}
+              variant='contained'
+              color='primary'
+            >
+              로그인
+            </Button>
+          </Link>
+          <Link to='/signup' className={classes.link}>
+            <Button
+              sx={{ fontSize: '18px' }}
+              variant='contained'
+              color='secondary'
+            >
+              회원가입
+            </Button>
+          </Link>
         </span>
       );
     }
@@ -54,10 +67,10 @@ function Header({ authed, toggle, setToggle }: headerProps) {
       <div className={classes.root}>
         <div className={classes.firstContainer}>
           <IconButton onClick={() => setToggle((toggle: boolean) => !toggle)}>
-            <MenuIcon className={classes.navBar} fontSize="large" />
+            <MenuIcon className={classes.navBar} fontSize='large' />
           </IconButton>
           <div className={classes.logo}>
-            <Typography variant="h4">BookMarkit</Typography>
+            <Typography variant='h4'>BookMarkit</Typography>
           </div>
         </div>
         <TextField
@@ -65,12 +78,12 @@ function Header({ authed, toggle, setToggle }: headerProps) {
           // className={classes.search}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          variant="outlined"
+          variant='outlined'
         />
         <div className={classes.thirdContainer}>{userSpace()}</div>
       </div>
@@ -80,49 +93,55 @@ function Header({ authed, toggle, setToggle }: headerProps) {
 
 const useStyles = makeStyles({
   root: {
-    direction: "inherit",
-    display: "flex",
-    marginTop: "20px",
-    marginBottom: "40px",
+    direction: 'inherit',
+    display: 'flex',
+    marginTop: '20px',
+    marginBottom: '40px',
   },
   firstContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   secondContainer: {
     flex: 3,
-    padding: "10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   thirdContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   logo: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     // alignContent: "center",
     // placeContent: "center",
-    color: "#39F",
-    justifyContent: "center",
+    color: '#39F',
+    justifyContent: 'center',
   },
   search: {},
   userName: {
     // flexDirection: "column",
   },
   navBar: {},
+  link: {
+    textDecoration: 'none',
+    '&:visited': { textDecoration: 'none' },
+    '&:hover': { textDecoration: 'none' },
+    '&:link': { textDecoration: 'none' },
+  },
 });
 
 export default Header;
