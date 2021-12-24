@@ -8,7 +8,7 @@ const initialState: SearchState = {
   load: "",
 };
 
-const search = (state = {}, action: AnyAction) => {
+const search = (state: SearchState = initialState, action: AnyAction) => {
   switch (action.type) {
     case "SET_SEARCH":
       return {

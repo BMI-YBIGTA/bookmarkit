@@ -5,14 +5,25 @@ import MenubarComponent from "../components/dashboard/menubar-component";
 import Header from "../components/header/header";
 import MainCategoryComponent from "../components/dashboard/main-category-component";
 import NavigationComponent from "../components/dashboard/navigation-component";
-import RecordComponent from "../components/record/record-component";
-import { ImageList } from "@mui/material";
+import RecordComponent, {
+  EnumStatus,
+} from "../components/record/record-component";
+import { ImageList, List, ListItem } from "@mui/material";
 import SignInComponent from "../components/auth/sign-in-component";
 import { useSelector } from "react-redux";
 import userReducer, { UserState } from "../stores/reducers/userReducer";
 import { RootState } from "../stores/reducers";
 import { LIGHT_GREY_COLOR } from "../assets/colors";
-import { fetchMainCategoryData, IfetchMainCategoryDataProps } from "../apis";
+import {
+  fetchMainCategoryData,
+  fetchSearchData,
+  IfetchMainCategoryDataProps,
+  IfetchSearchDataProps,
+} from "../apis";
+import OneResultComponent, {
+  IOneResultComponentProps,
+} from "../components/search/one-result-component";
+import { EnumType } from "typescript";
 
 // const before_reduce = [
 //   {
@@ -68,6 +79,14 @@ export interface IsubCategory {
 interface ImainCategory {
   [key: string]: IsubCategory;
 }
+interface IsearchData {
+  mainCategory: string;
+  subCategory: string;
+  title: string;
+  link: string;
+  content: string;
+  status: EnumStatus;
+}
 function DashboardPage() {
   const classes = useStyles();
   const [isToggledNavBar, setToggle] = useState(false);
@@ -75,19 +94,32 @@ function DashboardPage() {
   const [authed, setAuthed] = useState(false);
   const [mainCategoryData, setMainCategoryData]: [ImainCategory, Function] =
     useState({});
+  const [searchData, setSearchData]: [IsearchData[], Function] = useState([]);
+
   const token = JSON.parse(
     window.localStorage.getItem("userInfo") || "{}"
   ).token;
 
-  const currentSearchText = useSelector((state: RootState) => state.search);
+  const currentSearchText = useSelector(
+    (state: RootState) => state.search.load
+  );
 
   const fetchProps: IfetchMainCategoryDataProps = {
     token: token,
     category: category,
   };
+  const fetchSearchProps: IfetchSearchDataProps = {
+    token: token,
+    searchText: currentSearchText,
+  };
   useEffect(() => {
     fetchMainCategoryData(fetchProps).then((res) => setMainCategoryData(res));
-  }, [category, useSelector((state: RootState) => state.userReducer.loggedIn)]);
+    fetchSearchData(fetchSearchProps).then((res) => setSearchData(res));
+  }, [
+    category,
+    currentSearchText,
+    useSelector((state: RootState) => state.userReducer.loggedIn),
+  ]);
 
   return (
     <div className={classes.root}>
@@ -110,7 +142,7 @@ function DashboardPage() {
                 <AddBookmarkComponent />
               </div> */}
             </div>
-            {mainCategoryData ? (
+            {!currentSearchText && mainCategoryData ? (
               <ImageList cols={2}>
                 {Object.entries(mainCategoryData).map(([key, value]) => {
                   console.log(key, value);
@@ -124,7 +156,17 @@ function DashboardPage() {
                 })}
               </ImageList>
             ) : (
-              <div></div>
+              <List>
+                {searchData.map((value: IsearchData) => {
+                  const oneSearchProps: IOneResultComponentProps = {
+                    mainCategory: value.mainCategory,
+                    subCategory: value.subCategory,
+                    title: value.title,
+                    content: value.content,
+                  };
+                  return <OneResultComponent {...oneSearchProps} />;
+                })}
+              </List>
             )}
           </div>
           <div className={classes.thirdContainer}>

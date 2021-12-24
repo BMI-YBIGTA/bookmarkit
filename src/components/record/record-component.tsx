@@ -9,7 +9,7 @@ import {
   MAIN_COLOR,
 } from "../../assets/colors";
 
-enum EnumStatus {
+export enum EnumStatus {
   INIT = "초기화중",
   REQUESTING = "분류중",
   CLASSIFIED = "",
