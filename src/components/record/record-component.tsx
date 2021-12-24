@@ -1,6 +1,13 @@
 import React, { Component, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Box, Paper, Stack, Typography } from "@mui/material";
+import {
+  BLUE_COLOR,
+  GREEN_COLOR,
+  GREY_COLOR,
+  LIGHT_GREY_COLOR,
+  MAIN_COLOR,
+} from "../../assets/colors";
 
 enum EnumStatus {
   INIT = "초기화중",
@@ -96,9 +103,17 @@ function RecordComponent() {
                   <Typography className={classes.rowCategory}>
                     {item.category}
                   </Typography>
-                  <Typography className={classes.rowStatus}>
-                    {item.status}
-                  </Typography>
+                  {item.status === EnumStatus.REQUESTING ? (
+                    <Typography className={classes.rowRequesting}>
+                      {item.status}
+                    </Typography>
+                  ) : item.status === EnumStatus.INIT ? (
+                    <Typography className={classes.rowInit}>
+                      {item.status}
+                    </Typography>
+                  ) : (
+                    <Typography>{item.status}</Typography>
+                  )}
                 </div>
                 <Typography className={classes.rowTitle}>
                   {item.title}
@@ -126,7 +141,7 @@ const useStyles = makeStyles(() => ({
   },
   row: { textAlign: "left", marginBottom: "10px" },
   rowDate: {
-    color: "LightGray",
+    color: GREY_COLOR,
   },
   rowHead: {
     display: "flex",
@@ -136,10 +151,13 @@ const useStyles = makeStyles(() => ({
     marginBottom: "5px",
   },
   rowCategory: {
-    color: "Crimson",
+    color: BLUE_COLOR,
   },
-  rowStatus: {
-    color: "ForestGreen",
+  rowRequesting: {
+    color: GREEN_COLOR,
+  },
+  rowInit: {
+    color: MAIN_COLOR,
   },
   rowTitle: {
     whiteSpace: "nowrap",
