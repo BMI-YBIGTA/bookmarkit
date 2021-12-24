@@ -15,11 +15,11 @@ import {
   Divider,
 } from "@mui/material";
 import { Settings } from "@mui/icons-material";
-
+import { IsubCategory } from "../../pages/dashboard-page";
 
 interface MainCategoryProps {
-  mainCat: string,
-  bookmarks: Array<any>,
+  mainCat: string;
+  bookmarks: IsubCategory;
 }
 
 function MainCategoryComponent(props: MainCategoryProps) {
@@ -36,7 +36,7 @@ function MainCategoryComponent(props: MainCategoryProps) {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Card
         variant="outlined"
         className={classes.category}
@@ -46,41 +46,51 @@ function MainCategoryComponent(props: MainCategoryProps) {
           <Typography variant="h5" gutterBottom className={classes.mainCat}>
             {props.mainCat}
           </Typography>
-          {props.bookmarks.map((item) => {
+          {/* {Object.entries(props.bookmarks).map(([key, value]) => { */}
+          {Object.entries(props.bookmarks).map(([key, value]) => {
             return (
-              <div key={item.title}>
+              <div key={key}>
                 <Chip
                   variant="outlined"
-                  label={item.smallCat}
+                  label={key}
                   color="primary"
                   className={classes.smallCat}
                 />
                 <div className={classes.bookmark}>
-                  <Typography variant="body2" className={classes.bookmarkHeader}>
-                    {item.title}
-                  </Typography>
-                  <IconButton onClick={handleOpen}>
-                    <Settings className={classes.setIcon} />
-                  </IconButton>
-                  <Dialog open={open} onClose={handleClose}>
-                    <DialogTitle>북마크 설정</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>gdgd</DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose}>OK</Button>
-                      <Button onClick={handleClose} color="warning">
-                        취소
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
+                  {value.map((result: string) => {
+                    return (
+                      <Typography
+                        variant="body2"
+                        className={classes.bookmarkHeader}
+                      >
+                        {result}
+                      </Typography>
+                    );
+                  })}
                 </div>
-                <Divider />
-                <br />
               </div>
-            )
+            );
           })}
-          
+          <IconButton onClick={handleOpen}>
+            <Settings className={classes.setIcon} />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>북마크 설정</DialogTitle>
+            <DialogContent>
+              <DialogContentText>gdgd</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>OK</Button>
+              <Button onClick={handleClose} color="warning">
+                취소
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Divider />
+          {/* <br /> */}
+          {/* </div> */}
+          {/* ); */}
+          {/* })} */}
         </CardContent>
       </Card>
     </div>
@@ -90,13 +100,14 @@ function MainCategoryComponent(props: MainCategoryProps) {
 const useStyles = makeStyles({
   root: {
     color: "black",
+    padding: "10px",
   },
   category: {
     border: 3,
     boxShadow: "none",
   },
   mainCat: {
-    marginBottom: "2rem"
+    marginBottom: "2rem",
   },
   smallCat: {
     marginBottom: "5px",
