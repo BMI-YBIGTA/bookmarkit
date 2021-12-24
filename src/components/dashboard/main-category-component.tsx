@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Card,
@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import { Settings } from "@mui/icons-material";
 import { IsubCategory, IsubTitles } from "../../pages/dashboard-page";
+import { useSelector } from "react-redux";
+import { RootState } from "../../stores/reducers";
 
 interface MainCategoryProps {
   mainCat: string;
