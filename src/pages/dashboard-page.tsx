@@ -58,32 +58,27 @@ function DashboardPage() {
     <div>
       <Header authed={authed} toggle={isToggledNavBar} setToggle={setToggle} />
       <div className={classes.mainContainer}>
-        <div className={classes.firstContainer}></div>
-        {/* <Header toggle={isToggledNavBar} setToggle={setToggle} /> */}
-        <div className={classes.mainContainer}>
-          <div className={classes.firstContainer}>
-            <NavigationComponent toggle={isToggledNavBar} />
-          </div>
-          <div className={classes.secondContainer}>
-            <MenubarComponent />
-            <AddBookmarkComponent />
-            <ImageList cols={2}>
-              {reduced.map((item) => {
-                return (
-                  <MainCategoryComponent
-                    key={item.mainCat}
-                    mainCat={item.mainCat}
-                    bookmarks={item.bookmarks}
-                  />
-                );
-              })}
-            </ImageList>
-          </div>
-          <div className={classes.thirdContainer}>
-            <RecordComponent />
-          </div>
+        <div className={classes.firstContainer}>
+          <NavigationComponent toggle={isToggledNavBar} />
         </div>
-        <SignInComponent />
+        <div className={classes.secondContainer}>
+          <MenubarComponent />
+          <AddBookmarkComponent />
+          <ImageList cols={2}>
+            {reduced.map((item) => {
+              return (
+                <MainCategoryComponent
+                  key={item.mainCat}
+                  mainCat={item.mainCat}
+                  bookmarks={item.bookmarks}
+                />
+              );
+            })}
+          </ImageList>
+        </div>
+        <div className={classes.thirdContainer}>
+          <RecordComponent />
+        </div>
       </div>
     </div>
   );
