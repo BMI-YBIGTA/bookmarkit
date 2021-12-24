@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   TextField,
   Typography,
@@ -8,10 +8,10 @@ import {
   Paper,
   IconButton,
   InputBase,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
-import { makeStyles } from "@mui/styles";
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
 
 interface headerProps {
   authed: boolean
@@ -19,7 +19,7 @@ interface headerProps {
 
 function Header({authed}:headerProps) {
   const classes = useStyles();
-  const [userName, setUserName] = useState("User");
+  const [userName, setUserName] = useState('User');
 
   const userSpace = () => {
     if(authed) {
@@ -51,11 +51,13 @@ function Header({authed}:headerProps) {
     <div>
       <div className={classes.root}>
         <div className={classes.firstContainer}>
-          <IconButton>
-            <MenuIcon className={classes.navBar} fontSize="large" />
+          <IconButton
+            onClick={() => props.setToggle((toggle: boolean) => !toggle)}
+          >
+            <MenuIcon className={classes.navBar} fontSize='large' />
           </IconButton>
           <div className={classes.logo}>
-            <Typography variant="h4">BookMarkit</Typography>
+            <Typography variant='h4'>BookMarkit</Typography>
           </div>
         </div>
         <TextField
@@ -63,12 +65,12 @@ function Header({authed}:headerProps) {
           // className={classes.search}
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          variant="outlined"
+          variant='outlined'
         />
         <div className={classes.thirdContainer}>
           {userSpace()}
@@ -80,19 +82,19 @@ function Header({authed}:headerProps) {
 
 const useStyles = makeStyles({
   root: {
-    direction: "inherit",
-    display: "flex",
-    marginTop: "20px",
-    marginBottom: "40px",
+    direction: 'inherit',
+    display: 'flex',
+    marginTop: '20px',
+    marginBottom: '40px',
   },
   firstContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   secondContainer: {
     flex: 3,
@@ -103,20 +105,20 @@ const useStyles = makeStyles({
   },
   thirdContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-    padding: "10px",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
   },
   logo: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     // alignContent: "center",
     // placeContent: "center",
-    color: "#39F",
-    justifyContent: "center",
+    color: '#39F',
+    justifyContent: 'center',
   },
   search: {},
   userName: {
