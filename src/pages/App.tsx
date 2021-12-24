@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import DashboardPage from "./dashboard-page";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
     <div>
-      <DashboardPage />
+      <Switch>
+        <Route exact path="/" component={DashboardPage} />
+        {/* <Route path="/signup" component={SignUpPage} />
+        <Route path="/signin" component={SignInPage} /> */}
+      </Switch>
     </div>
   );
 }
