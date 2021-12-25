@@ -48,22 +48,21 @@ function Header2({ authed }: headerProps) {
   const userSpace = () => {
     if (authed) {
       return (
-        <span>
-          <Typography variant="h5">
-            <Box sx={{ fontWeight: "bold" }}>{nickname}님</Box>
-          </Typography>
-          <Button
-            sx={{ fontSize: "18px" }}
-            variant="text"
-            color="error"
-            onClick={() => {
-              dispatch({ type: LOGOUT_USER });
-              window.localStorage.clear();
-            }}
-          >
-            로그아웃
-          </Button>
-        </span>
+        <>
+          <Typography variant="h6">{nickname}님</Typography>
+          <span className={classes.span}>
+            <Button
+              variant="text"
+              color="error"
+              onClick={() => {
+                dispatch({ type: LOGOUT_USER });
+                window.localStorage.clear();
+              }}
+            >
+              <Typography variant="h6">로그아웃</Typography>
+            </Button>
+          </span>
+        </>
       );
     } else {
       return (
@@ -142,6 +141,11 @@ const useStyles = makeStyles({
     "&:visited": { textDecoration: "none" },
     "&:hover": { textDecoration: "none" },
     "&:link": { textDecoration: "none" },
+  },
+  span: {
+    display: "flex",
+    flexDirection: "row",
+    justifyItems: "center",
   },
 });
 

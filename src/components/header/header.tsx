@@ -48,25 +48,21 @@ function Header({ authed }: headerProps) {
   const userSpace = () => {
     if (authed) {
       return (
-        <span className={classes.span}>
-          <Typography variant="h5" className={classes.link}>
-            <Box sx={{ fontWeight: "bold", fontSize: "16px" }}>
-              {nickname}님
-            </Box>
-          </Typography>
-          <Button
-            className={classes.button}
-            sx={{ fontSize: "16px" }}
-            variant="text"
-            color="error"
-            onClick={() => {
-              dispatch({ type: LOGOUT_USER });
-              window.localStorage.clear();
-            }}
-          >
-            로그아웃
-          </Button>
-        </span>
+        <>
+          <Typography variant="h6">{nickname}님</Typography>
+          <span className={classes.span}>
+            <Button
+              variant="text"
+              color="error"
+              onClick={() => {
+                dispatch({ type: LOGOUT_USER });
+                window.localStorage.clear();
+              }}
+            >
+              <Typography variant="h6">로그아웃</Typography>
+            </Button>
+          </span>
+        </>
       );
     } else {
       return (
@@ -143,6 +139,7 @@ const useStyles = makeStyles({
   navBar: {},
   link: {
     flex: 1,
+    // width: "100px",
     textDecoration: "none",
     "&:visited": { textDecoration: "none" },
     "&:hover": { textDecoration: "none" },
@@ -151,6 +148,7 @@ const useStyles = makeStyles({
   button: {
     flex: 1,
     textDecoration: "none",
+    width: "20",
   },
   span: {
     display: "flex",
