@@ -38,6 +38,9 @@ function Header({ authed }: headerProps) {
   const nickname = JSON.parse(
     window.localStorage.getItem("userInfo") || "{}"
   ).name;
+
+  dispatch(actions.search.setSearch(searchText));
+
   useEffect(() => {}, [
     useSelector((state: RootState) => state.userReducer.loggedIn),
   ]);

@@ -30,7 +30,7 @@ interface headerProps {
   authed: boolean;
 }
 
-function Header({ authed }: headerProps) {
+function Header2({ authed }: headerProps) {
   const classes = useStyles();
   const [userName, setUserName] = useState("User");
   const dispatch = useDispatch();
@@ -145,4 +145,4 @@ const useStyles = makeStyles({
   },
 });
 
-export default Header;
+export default Header2;
