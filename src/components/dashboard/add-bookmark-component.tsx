@@ -25,7 +25,6 @@ function AddBookmarkComponent() {
     const params: IpostRegisterBookmark = {
       memberId: "0",
       title: title,
-      header: document.title,
       link: document.URL,
       content: document.body.textContent ? document.body.textContent : "",
     };
@@ -57,11 +56,6 @@ function AddBookmarkComponent() {
             margin="dense"
             onChange={(e) => {
               setUrl(e.target.value);
-              //   getTitle(e.target.value);
-              //   getTitle(e.target.value).then((url) => {
-              //     console.log(url);
-              //     setTitle(url);
-              //   });
             }}
           />
           <DialogContentText>이름</DialogContentText>

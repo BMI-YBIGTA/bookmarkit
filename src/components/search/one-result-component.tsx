@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Chip, Divider, Paper, Typography } from "@mui/material";
+import { BLUE_COLOR } from "../../assets/colors";
 
 export interface IOneResultComponentProps {
   mainCategory: string;
@@ -30,7 +31,10 @@ function OneResultComponent(props: IOneResultComponentProps) {
           {props.title}
         </Typography>
         <br />
-        <Typography>{props.content}</Typography>
+        <div className={classes.content}>
+          <Typography>{props.content}</Typography>
+        </div>
+
         <br />
         <Divider />
       </Paper>
@@ -43,11 +47,17 @@ const useStyles = makeStyles({
     color: "black",
   },
   category: {
-    marginRight: "1rem",
     marginBottom: "1rem",
+    marginTop: "2rem",
   },
   title: {
     marginBottom: "2rem",
+  },
+  content: {
+    whiteSpace: "normal",
+    overflow: "hidden",
+    wordWrap: "break-word",
+    textOverflow: "ellipsis",
   },
 });
 

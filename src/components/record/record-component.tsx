@@ -8,77 +8,37 @@ import {
   LIGHT_GREY_COLOR,
   MAIN_COLOR,
 } from "../../assets/colors";
+import { fetchRecordData, IfetchRecordDataProps } from "../../apis/apis";
 
 export enum EnumStatus {
   INIT = "초기화중",
   REQUESTING = "분류중",
   CLASSIFIED = "",
 }
-
-type IItem = {
+interface IrecordDateData {
+  memberBookmarkId: number;
+  mainCategory: string;
+  subCategory: string;
   title: string;
-  category: string;
-  createdDate: string;
   link: string;
+  createdDate: string;
   status: EnumStatus;
-};
+}
+interface IrecordData {
+  [key: string]: IrecordDateData[];
+}
 
-const rawItemData: IItem[] = [
-  {
-    title: "네이버 블로그 주소 어쩌고 저쩌고, 네이버 블로그 주소 어쩌고 저쩌고",
-    category: "OS / 알고리즘",
-    createdDate: "12월 20일",
-    link: "https://brunch.co.kr/",
-    status: EnumStatus.CLASSIFIED,
-  },
-  {
-    title: "다음 블로그 주소 어쩌고 저쩌고, 네이버 블로그 주소 어쩌고 저쩌고",
-    category: "OS / 자료구조",
-    createdDate: "12월 20일",
-    link: "https://brunch.co.kr/",
-    status: EnumStatus.REQUESTING,
-  },
-  {
-    title:
-      "네이트 블로그 주소 어쩌고 저쩌고,, 네이버 블로그 주소 어쩌고 저쩌고",
-    category: "OS / 자료구조",
-    createdDate: "12월 17일",
-    link: "https://brunch.co.kr/",
-    status: EnumStatus.INIT,
-  },
-];
-
-function RecordComponent() {
+function RecordComponent(props: IfetchRecordDataProps) {
   const classes = useStyles();
   const [date, setDate] = useState("");
+  const [recordData, setRecordData]: [IrecordData, Function] = useState({});
 
-  const getDateData = (itemData: IItem[]) => {
-    let dateData = [];
-    for (const item of itemData) {
-      if (item.createdDate in dateData) {
-        continue;
-      } else {
-        dateData.push(item.createdDate);
-      }
-    }
-    return dateData;
+  const fetchRecordProps: IfetchRecordDataProps = {
+    token: props.token,
   };
-
-  const dateData = getDateData(rawItemData);
-
-  const valueData = [];
-  let currentDate = dateData[0];
-  let temp: IItem[] = [];
-  for (const item of rawItemData) {
-    if (currentDate === item.createdDate) {
-      temp.push(item);
-    } else {
-      valueData.push(temp);
-      temp = [item];
-      currentDate = item.createdDate;
-    }
-  }
-  valueData.push(temp);
+  useEffect(() => {
+    fetchRecordData(fetchRecordProps).then((res) => setRecordData(res));
+  }, []);
 
   return (
     <Paper className={classes.record} elevation={1}>
@@ -92,36 +52,40 @@ function RecordComponent() {
         spacing={5}
         marginTop="20px"
       >
-        {valueData.map((items, idx) => (
-          <div key={idx}>
-            <Typography className={classes.rowDate}>
-              {dateData.at(idx)}
-            </Typography>
-            {items.map((item, idx) => (
-              <div key={idx} className={classes.row}>
-                <div className={classes.rowHead}>
-                  <Typography className={classes.rowCategory}>
-                    {item.category}
-                  </Typography>
-                  {item.status === EnumStatus.REQUESTING ? (
-                    <Typography className={classes.rowRequesting}>
-                      {item.status}
+        {recordData &&
+          Object.entries(recordData).map(([key, value]) => {
+            return (
+              <div key={key}>
+                <Typography className={classes.rowDate}>{key}</Typography>
+                {Object.entries(value).map(([key_, value_]) => (
+                  <div key={key_} className={classes.row}>
+                    <div className={classes.rowHead}>
+                      <Typography className={classes.rowCategory}>
+                        {value_.mainCategory + " / " + value_.subCategory}
+                      </Typography>
+                      {value_.status === EnumStatus.REQUESTING ? (
+                        <Typography className={classes.rowRequesting}>
+                          {value_.status}
+                        </Typography>
+                      ) : value_.status === EnumStatus.INIT ? (
+                        <Typography className={classes.rowInit}>
+                          {value_.status}
+                        </Typography>
+                      ) : (
+                        <Typography></Typography>
+                      )}
+                    </div>
+                    <Typography
+                      onClick={() => window.open(value_.link, "_blank")}
+                      className={classes.rowTitle}
+                    >
+                      {value_.title}
                     </Typography>
-                  ) : item.status === EnumStatus.INIT ? (
-                    <Typography className={classes.rowInit}>
-                      {item.status}
-                    </Typography>
-                  ) : (
-                    <Typography>{item.status}</Typography>
-                  )}
-                </div>
-                <Typography className={classes.rowTitle}>
-                  {item.title}
-                </Typography>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        ))}
+            );
+          })}
       </Stack>
     </Paper>
   );
