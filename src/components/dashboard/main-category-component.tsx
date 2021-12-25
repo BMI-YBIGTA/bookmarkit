@@ -51,7 +51,6 @@ function MainCategoryComponent(props: MainCategoryProps) {
           {/* {Object.entries(props.bookmarks).map(([key, value]) => { */}
           {props.bookmarks &&
             Object.entries(props.bookmarks).map(([key, value]) => {
-              console.log("data: ", key, value);
               return (
                 <div key={key}>
                   <Chip
@@ -68,6 +67,7 @@ function MainCategoryComponent(props: MainCategoryProps) {
                           <Typography
                             variant="body2"
                             className={classes.bookmarkHeader}
+                            onClick={() => window.open(result.link, "_blank")}
                           >
                             {result.title}
                           </Typography>
@@ -77,7 +77,7 @@ function MainCategoryComponent(props: MainCategoryProps) {
                 </div>
               );
             })}
-          <IconButton onClick={handleOpen}>
+          {/* <IconButton onClick={handleOpen}>
             <Settings className={classes.setIcon} />
           </IconButton>
           <Dialog open={open} onClose={handleClose}>
@@ -92,11 +92,7 @@ function MainCategoryComponent(props: MainCategoryProps) {
               </Button>
             </DialogActions>
           </Dialog>
-          <Divider />
-          {/* <br /> */}
-          {/* </div> */}
-          {/* ); */}
-          {/* })} */}
+          <Divider /> */}
         </CardContent>
       </Card>
     </div>
@@ -113,7 +109,7 @@ const useStyles = makeStyles({
     boxShadow: "none",
   },
   mainCat: {
-    marginBottom: "2rem",
+    paddingBottom: "10px",
   },
   smallCat: {
     marginBottom: "5px",
@@ -133,6 +129,8 @@ const useStyles = makeStyles({
     textAlign: "center",
     display: "flex",
     flexDirection: "column",
+    paddingLeft: "8px",
+    paddingTop: "8px",
     justifyContent: "center",
   },
 });

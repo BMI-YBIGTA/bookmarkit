@@ -8,7 +8,7 @@ const initialState: CategoryState = {
   load: "",
 };
 
-const category = (state = {}, action: AnyAction) => {
+const category = (state: CategoryState = initialState, action: AnyAction) => {
   switch (action.type) {
     case "SET_CATEGORY":
       return {

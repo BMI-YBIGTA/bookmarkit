@@ -18,6 +18,7 @@ import {
   fetchMainCategoryData,
   fetchSearchData,
   IfetchMainCategoryDataProps,
+  IfetchRecordDataProps,
   IfetchSearchDataProps,
 } from "../apis";
 import OneResultComponent, {
@@ -90,7 +91,6 @@ interface IsearchData {
 function DashboardPage() {
   const classes = useStyles();
   const [isToggledNavBar, setToggle] = useState(false);
-  const [category, setCategory] = useState("");
   const [authed, setAuthed] = useState(false);
   const [mainCategoryData, setMainCategoryData]: [ImainCategory, Function] =
     useState({});
@@ -98,10 +98,13 @@ function DashboardPage() {
 
   useSelector((state: RootState) => state.userReducer.loggedIn);
 
+  const category = useSelector((state: RootState) => state.category.load);
+
   const token = JSON.parse(
     window.localStorage.getItem("userInfo") || "{}"
   ).token;
 
+  // const token = "";
   const currentSearchText = useSelector(
     (state: RootState) => state.search.load
   );
@@ -119,6 +122,9 @@ function DashboardPage() {
     fetchSearchData(fetchSearchProps).then((res) => setSearchData(res));
   }, [category, currentSearchText]);
 
+  const IrecordProps: IfetchRecordDataProps = {
+    token: token,
+  };
   return (
     <div className={classes.root}>
       <div className={classes.naviContainer}>
@@ -143,7 +149,6 @@ function DashboardPage() {
             {!currentSearchText && mainCategoryData ? (
               <ImageList cols={2}>
                 {Object.entries(mainCategoryData).map(([key, value]) => {
-                  console.log(key, value);
                   return (
                     <MainCategoryComponent
                       key={key}
@@ -154,21 +159,22 @@ function DashboardPage() {
                 })}
               </ImageList>
             ) : (
-              <List>
-                {searchData.map((value: IsearchData) => {
-                  const oneSearchProps: IOneResultComponentProps = {
-                    mainCategory: value.mainCategory,
-                    subCategory: value.subCategory,
-                    title: value.title,
-                    content: value.content,
-                  };
-                  return <OneResultComponent {...oneSearchProps} />;
-                })}
+              <List className={classes.searchlist}>
+                {searchData &&
+                  searchData.map((value: IsearchData) => {
+                    const oneSearchProps: IOneResultComponentProps = {
+                      mainCategory: value.mainCategory,
+                      subCategory: value.subCategory,
+                      title: value.title,
+                      content: value.content,
+                    };
+                    return <OneResultComponent {...oneSearchProps} />;
+                  })}
               </List>
             )}
           </div>
           <div className={classes.thirdContainer}>
-            <RecordComponent />
+            <RecordComponent {...IrecordProps} />
           </div>
         </div>
       </div>
@@ -191,6 +197,7 @@ const useStyles = makeStyles({
     flex: 5,
     display: "flex",
     flexDirection: "column",
+    width: window.innerWidth - 300,
   },
   mainContainer: {
     display: "flex",
@@ -232,6 +239,12 @@ const useStyles = makeStyles({
     flex: 20,
     paddingLeft: "10px",
     paddingRight: "10px",
+  },
+  searchlist: {
+    whiteSpace: "normal",
+    overflow: "hidden",
+    wordWrap: "break-word",
+    textOverflow: "ellipsis",
   },
 });
 

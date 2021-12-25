@@ -33,27 +33,27 @@ interface headerProps {
 function Header({ authed }: headerProps) {
   const classes = useStyles();
   const [userName, setUserName] = useState("User");
-  const [searchText, setSearchText] = useState("");
   const dispatch = useDispatch();
+  const [searchText, setSearchText] = useState("");
   const nickname = JSON.parse(
     window.localStorage.getItem("userInfo") || "{}"
   ).name;
-  useEffect(() => {}, [
+  useEffect(() => {
+    dispatch(actions.search.setSearch(searchText));
+  }, [
     useSelector((state: RootState) => state.userReducer.loggedIn),
+    searchText,
   ]);
 
   const userSpace = () => {
     if (authed) {
       return (
-        <span className={classes.span}>
-          <Typography variant="h5" className={classes.link}>
-            <Box sx={{ fontWeight: "bold", fontSize: "16px" }}>
-              {nickname}님
-            </Box>
+        <span>
+          <Typography variant="h5">
+            <Box sx={{ fontWeight: "bold" }}>{nickname}님</Box>
           </Typography>
           <Button
-            className={classes.button}
-            sx={{ fontSize: "16px" }}
+            sx={{ fontSize: "18px" }}
             variant="text"
             color="error"
             onClick={() => {
@@ -131,7 +131,6 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
-    padding: "10px",
   },
   search: {},
   userName: {
@@ -139,20 +138,10 @@ const useStyles = makeStyles({
   },
   navBar: {},
   link: {
-    flex: 1,
     textDecoration: "none",
     "&:visited": { textDecoration: "none" },
     "&:hover": { textDecoration: "none" },
     "&:link": { textDecoration: "none" },
-  },
-  button: {
-    flex: 1,
-    textDecoration: "none",
-  },
-  span: {
-    display: "flex",
-    flexDirection: "row",
-    justifyItems: "center",
   },
 });
 

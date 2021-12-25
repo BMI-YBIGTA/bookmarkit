@@ -2,9 +2,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../stores/reducers";
 
-export const api = axios.create({
-  baseURL: "http://54.226.57.233:8080",
-});
+// export const api = axios.create({
+//   baseURL: "http://54.226.57.233:8080",
+// });
 
 export interface IfetchMainCategoryDataProps {
   token: string;
@@ -14,7 +14,6 @@ export const fetchMainCategoryData = async (
   props: IfetchMainCategoryDataProps
 ) => {
   try {
-    console.log(props);
     axios.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
 
     const response = await axios.get(
@@ -25,7 +24,6 @@ export const fetchMainCategoryData = async (
         },
       }
     );
-    console.log(response.data.result);
     return response.data.result;
   } catch (e) {
     console.log("fetch 실패");
@@ -35,22 +33,21 @@ export const fetchMainCategoryData = async (
 export interface IpostRegisterBookmark {
   memberId: string;
   title: string;
-  header: string;
   link: string;
   content: string;
 }
 
 export const postRegisterBookmark = async (params: IpostRegisterBookmark) => {
   try {
-    console.log(params);
-    const response = await api.post("/api/memberbookmark", {
-      memberId: params.memberId,
-      title: params.title,
-      header: params.header,
-      link: params.link,
-      content: params.content,
-    });
-    console.log(response.data);
+    const response = await axios.post(
+      "http://54.226.57.233:8080/api/memberbookmark",
+      {
+        memberId: params.memberId,
+        title: params.title,
+        link: params.link,
+        content: params.content,
+      }
+    );
   } catch (e) {
     console.log("북마크 등록에 실패하셨습니다.");
   }
@@ -73,7 +70,6 @@ export const fetchSearchData = async (props: IfetchSearchDataProps) => {
         },
       }
     );
-    console.log("search: ", response.data.result);
     return response.data.result;
   } catch (e) {
     console.log("fetch 실패");
@@ -88,10 +84,22 @@ export const fetchRecordData = async (props: IfetchRecordDataProps) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
 
     const response = await axios.get(
-      "http://54.226.57.233:8080/api/memberbookmark/recent",
-      {}
+      "http://54.226.57.233:8080/api/memberbookmark/recent"
     );
-    console.log("record: ", response.data.result);
+    return response.data.result;
+  } catch (e) {
+    console.log("fetch 실패");
+  }
+};
+
+export interface IfetchCategoriesProps {
+  token: string;
+}
+export const fetchCategoriesData = async (props: IfetchCategoriesProps) => {
+  try {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${props.token}`;
+
+    const response = await axios.get("http://54.226.57.233:8080/api/category");
     return response.data.result;
   } catch (e) {
     console.log("fetch 실패");

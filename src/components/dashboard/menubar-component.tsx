@@ -36,12 +36,15 @@ function MenubarComponent() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const category = useSelector((state:RootState) => state.search);
+  // const category = useSelector((state: RootState) => state.category.load);
 
-  const onClickCategory = (cat:string) => {
-    dispatch(actions.search.setSearch(cat));
-
-  }
+  const onClickCategory = (cat: string) => {
+    if (cat === "전체") {
+      dispatch(actions.category.setCategory(""));
+    } else {
+      dispatch(actions.category.setCategory(cat));
+    }
+  };
 
   return (
     <div>
@@ -54,7 +57,11 @@ function MenubarComponent() {
         </AccordionSummary>
         <AccordionDetails>
           {mainCategoryList.map((item) => {
-            return <Button color="secondary" onClick={()=>onClickCategory(item)} >{item}</Button>;
+            return (
+              <Button color="secondary" onClick={() => onClickCategory(item)}>
+                {item}
+              </Button>
+            );
           })}
         </AccordionDetails>
       </Accordion>
